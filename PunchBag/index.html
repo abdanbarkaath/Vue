@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="./node_modules/vue/dist/vue.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="app.css"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div id="app-root">
+        <!-- <button @click="add">click me</button> -->
+        <p>{{x}}{{add}}</p>
+        <img v-if="health >=1 " @click="damage" src="https://github.com/iamshaunjp/vuejs-playlist/blob/lesson-13/img/bag.png?raw=true" alt="">
+        <img v-else="health <=0 "  src="https://github.com/iamshaunjp/vuejs-playlist/blob/lesson-13/img/bag-burst.png?raw=true" alt="">
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

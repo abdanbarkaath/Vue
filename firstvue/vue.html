@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-on:input="run">
+        <p>{{title}}</p>
+        <p>{{greet()}}</p>
+        <a v-bind:href="website">google</a>
+        <hr>
+        <button v-on:click.once="add">add</button>
+        <button v-on:click="rem">remove</button>
+        <p>the age is {{age}}</p>
+    </div>
+
+    <div id="app-root">
+        <p v-bind:class="{red:col}">The color is</p>
+        <input type="text" v-on:keyup="keyp" placeholder="no use"><br>
+        <input type="text" v-model="num"><br>
+        <span>{{num}}</span>
+        <span v-if="true">hahahsa</span>
+        <button @click="increase()">timer</button>
+    </div>
+    <hr>
+    <div id="app=local">
+
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
