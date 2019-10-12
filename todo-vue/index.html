@@ -9,8 +9,10 @@
     <title>Document</title>
 </head>
 <body>
+        
     <div id="app-root">
         <input type="text" v-on:keypress.enter="addToList(value)" v-model="value">
+        <root></root>
         <p>{{value}}</p>
         <button v-on:click="addToList()">click</button>
         <ul>
@@ -20,9 +22,9 @@
                 <button @click="done(index)">Done</button>
             </li>
                 
-            
         </ul>
     </div>
+    
 
     <script src="app.js"></script>
 </body>
