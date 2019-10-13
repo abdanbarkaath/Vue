@@ -91,7 +91,7 @@ export default {
     loadData() {
       var vm = this;
       axios
-        .get("https://jsonplaceholder.typicode.com/users")
+        .get("https://jsonplaceholder.typicode.com/abdanbarkaath/Vue")
         .then(response => {
           this.employees = response.data;
         })
