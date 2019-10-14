@@ -9,8 +9,7 @@
         <ul class="navbar-nav pt-1">
           <li class="nav-item">
             <div class="dropdown" id="drp-down">
-              <a
-                class="btn btn btn-outline-success dropdown-toggle"
+              <a class="btn btn btn-outline-success dropdown-toggle"
                 href="#"
                 role="button"
                 id="dropdownMenuLink"
