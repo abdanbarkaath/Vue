@@ -185,6 +185,7 @@ export default {
         .put("http://localhost:3000/users/"+i, this.employee)
         .then(function(response) {
           console.log(response);
+          this.loadData();
           console.log(this.employee);
         })
         .catch(function(error) {
