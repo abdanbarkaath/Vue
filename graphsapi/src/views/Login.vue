@@ -5,19 +5,18 @@
 		<h2>Login</h2>
 		<hr>
         <div class="form-group">
-        	<input type="name" class="form-control" v-model="localUsers.name" placeholder="Name" required>
+        	<input type="name" class="form-control" @keydown="enable" v-model="localUsers.name" placeholder="Name" required>
         </div>
 		<div class="form-group">
-            <input type="password" class="form-control" v-model="localUsers.password" placeholder="Password" required>
+            <input type="password" class="form-control" @keydown="enable" v-model="localUsers.password" placeholder="Password" required>
         </div>
 		
 		<div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" @click.prevent="check">Login</button>
+            <button type="submit" class="btn btn-primary btn-lg" :disabled="x==0" @click.prevent="check">Login</button>
         </div>
-    </form>
     <div class="hint-text">Want to create an account? <a href="" @click.prevent="go">Sign up here</a></div>
+    </form>
 	</div>
-    
 </div>
 </template>
 
@@ -26,10 +25,23 @@ import VueRouter from '../router/index'
 export default {
     data(){
         return{
-            localUsers:{}
+            localUsers:{},
+            x:0,
         }
     },
     methods:{
+      enable(){
+         if(this.localUsers.name  &&  this.localUsers.password)
+        {
+          console.log(this.localUsers.password);
+          // console.log(this.x);
+          this.x = 1;
+        }else{
+          // console.log(this.x);
+          this.x = 0;
+          console.log(this.localUsers.password);
+        }
+      },
         go(){
             this.$router.push({name:'signup'})
         },
@@ -45,17 +57,17 @@ export default {
                 }
             })
             if(i==0){
-                console.log("wrong name or password");
+               alert("wrong name or password")
             }
         }
     }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 #back{
    background: #3598dc;
-   height: 620px;;
+   height: 625px;;
   color: black;
   padding:50px;
 }

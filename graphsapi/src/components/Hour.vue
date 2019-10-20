@@ -1,18 +1,28 @@
 <template>
   <div>
-      <div class="container">
-        <highcharts :options="chartOptions"></highcharts>
-      </div>
+    <p>Hour</p>
+    <p>{{city}}</p>
+    <p>{{data}}</p>
+    <div class="container">
+      <highcharts :options="chartOptions"></highcharts>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import { Chart } from "highcharts-vue";
 import axios from "axios";
 export default {
-data(){
-    return{
-        chartOptions: {
+  computed: {
+    ...mapGetters(["city"]),
+    ...mapGetters(["temp"]),
+    ...mapGetters(['data'])
+  },
+  data() {
+    return {
+      val: null,
+      chartOptions: {
         chart: {
           type: "column"
         },
@@ -20,20 +30,7 @@ data(){
           text: "Daily"
         },
         xAxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ],
+          categories: [this.data],
           crosshair: true
         },
         yAxis: {
@@ -61,14 +58,28 @@ data(){
               54.4
             ] // sample data
           }
-        ],
-      },
+        ]
+      }
+    };
+  },
+  methods: {
+    ...mapActions(['mutateData']),
+    loadData() {
+      axios
+        .get(
+          "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+this.temp+"?apikey=rRIAyCDjOM3B7vL2asO8KA9ytn4NQAIp&metric=true"
+        )
+        .then(response => {
+          this.mutateData(response.data)
+          console.log(this.data);
+        });
     }
-}
-
-}
+  },
+  mounted() {
+    this.loadData();
+  }
+};
 </script>
 
 <style>
-
 </style>
