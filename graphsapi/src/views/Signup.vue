@@ -2,10 +2,14 @@
   <div id="back">
     <div class="signup">
       <form id="forms">
-        <h2>Sign Up</h2>
-        <p>Please fill in this form to create an account!</p>
-        <hr />
+        <div id="sign-back">
+          <img id="pen" src="https://img.icons8.com/ios/70/000000/edit.png" />
+          <h2>Sign Up</h2>
+          <p style="font-size:12px">Please fill in this form to create an account!</p>
+        </div>
+        <!-- <hr /> -->
         <div class="form-group">
+          <label id="lab"><img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png"> Signup as</label>
           <input
             type="name"
             @keydown="enable"
@@ -16,6 +20,7 @@
           />
         </div>
         <div class="form-group">
+          <label id="lab"><img src="https://img.icons8.com/ios-glyphs/20/000000/email.png"> Email</label>
           <input
             type="email"
             @keydown="enable"
@@ -26,6 +31,7 @@
           />
         </div>
         <div class="form-group">
+          <label id="lab"><img src="https://img.icons8.com/material-sharp/20/000000/number-pad.png"> Phone Number</label>
           <input
             type="number"
             @keydown="enable"
@@ -36,6 +42,7 @@
           />
         </div>
         <div class="form-group">
+          <label id="lab"><img src="https://img.icons8.com/material-sharp/20/000000/visible.png"> Password</label>
           <input
             type="password"
             @keydown="enable"
@@ -46,6 +53,7 @@
           />
         </div>
         <div class="form-group">
+          <label id="lab"> <img src="https://img.icons8.com/material-sharp/20/000000/visible.png"> Repeat Password</label>
           <input
             type="password"
             @keydown="enable"
@@ -57,7 +65,9 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary btn-lg" :disabled="x==0" @click.prevent="add">Sign Up</button>
+          <button id="sign-up" class="btn btn-primary btn-lg" :disabled="x==0" @click.prevent="add">
+            <img src="https://img.icons8.com/ios/20/000000/edit.png" /> Sign Up
+          </button>
         </div>
         <div class="hint-text">
           Already have an account?
@@ -123,7 +133,7 @@ export default {
               ) {
                 alert("user already exists");
                 i = 0;
-              }else{
+              } else {
               }
             });
             if (this.localUsers.password !== this.localUsers.passwordagain) {
@@ -173,20 +183,44 @@ export default {
   color: black;
   padding: 10px;
   height: 625px;
+  #sign-back {
+    text-align: left;
+    height: 100px;
+    margin-bottom: 10px;
+    color: white;
+    padding: 15px;
+    background: red;
+    #pen {
+      padding-right: 10px;
+      float: right;
+    }
+  }
+  #lab {
+    float: left;
+    margin-bottom: 1px;
+  }
   .signup {
     width: 400px;
     margin: 0 auto;
     background: white;
     #forms {
       width: 100%;
-      padding: 10px;
       height: 605px;
     }
     .form-group {
-      padding: 10px;
+      padding: 0 10px 0 10px;
+      margin-bottom: 15px;
+      font-weight: 550;
     }
     a {
-      color: red;
+      color: #0275d8;
+    }
+    #sign-up {
+      width: 99%;
+      padding: 0px;
+      font-size: 20px;
+      margin-top: 15px;
+      height: 35px;
     }
   }
 }
