@@ -11,7 +11,7 @@ import VueRouter from './router/index'
 export default {
 
 created(){
-  this.$router.push({ name:'home'});
+  this.$router.push({ name:'login'});
 }
 }
 </script>

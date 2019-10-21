@@ -1,8 +1,5 @@
 <template>
   <div>
-    <p>Hour</p>
-    <p>{{city}}</p>
-    <p>{{data}}</p>
     <div class="container">
       <highcharts :options="chartOptions"></highcharts>
     </div>
@@ -17,61 +14,72 @@ export default {
   computed: {
     ...mapGetters(["city"]),
     ...mapGetters(["temp"]),
-    ...mapGetters(['data'])
+    ...mapGetters(["datas"])
   },
   data() {
     return {
       val: null,
+      x1: this.datas,
       chartOptions: {
         chart: {
           type: "column"
         },
         title: {
-          text: "Daily"
+          text: "Hourly"
         },
         xAxis: {
-          categories: [this.data],
+          // categories: ["abdan", "basil"],
           crosshair: true
         },
         yAxis: {
-          min: 0,
-          title: {
-            text: "Rainfall (mm)"
-          }
+         
         },
         colors: ["black"],
 
-        series: [
-          {
-            data: [
-              49.9,
-              71.5,
-              106.4,
-              129.2,
-              144.0,
-              176.0,
-              135.6,
-              148.5,
-              216.4,
-              194.1,
-              95.6,
-              54.4
-            ] // sample data
-          }
-        ]
+        series: []
       }
     };
   },
   methods: {
-    ...mapActions(['mutateData']),
+    ...mapActions(["mutateData"]),
     loadData() {
       axios
         .get(
-          "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"+this.temp+"?apikey=rRIAyCDjOM3B7vL2asO8KA9ytn4NQAIp&metric=true"
+          "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/" +
+            this.temp +
+            "?apikey=rRIAyCDjOM3B7vL2asO8KA9ytn4NQAIp&metric=true"
         )
         .then(response => {
-          this.mutateData(response.data)
-          console.log(this.data);
+          this.mutateData(response.data);
+          // console.log(response.data);
+          this.val = response.data;
+          console.log(this.val[0]);
+          const temp = [];
+          const xvalue = [];
+          // const yvalue = [0,10,20,30,40,50,60];
+          this.val.forEach(i => {
+            var t = i.DateTime;
+            var z = t.split("T")
+            var q = z[1].split("+");
+            temp.push(i.Temperature.Value);
+            xvalue.push(q[0]);
+          });
+          this.chartOptions.series = [
+            {
+              data:temp
+            }
+          ];
+          this.chartOptions.xAxis={
+            title:{
+              text:"Time"
+            },
+            categories:xvalue,
+          }
+          this.chartOptions.yAxis={
+            title:{
+              text:"degrees"
+            }
+          }
         });
     }
   },

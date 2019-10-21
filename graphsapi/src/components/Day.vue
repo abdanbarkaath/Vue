@@ -1,8 +1,5 @@
 <template>
   <div>
-    <p>Day</p>
-    <div>{{city}}</div>
-    <!-- <p>{{data.DailyForecasts[0].Date}}</p> -->
     <div class="container">
       <highcharts :options="chartOptions"></highcharts>
     </div>
@@ -17,50 +14,76 @@ export default {
   computed: {
     ...mapGetters(["city"]),
     ...mapGetters(["temp"]),
-    ...mapGetters(["data"]),
+    ...mapGetters(["data"])
   },
   data() {
     return {
       val: null,
-      store:2,
+      // x1:this.data[0].
+      store: 2,
       chartOptions: {
         chart: {
           type: "line"
         },
         title: {
-          text: "Hourly"
+          text: "Daily"
         },
         xAxis: {
-          categories: ["a",this.store]
+
         },
-        yAxis:{
-          categories:["abdan","basil","qadeer","turab"]
+        yAxis: {  
+          categories:[0,5,10,15,20,25,30,35,40,45,50],
+          title:{
+            text:"Degrees"
+          }
         },
         colors: ["blue"],
-        series: [
-          {
-            data: [1, 8, 3, 4, 5]
-          }
-        ]
+        series: []
       }
     };
   },
   methods: {
-    ...mapActions(['mutateData']),
+    ...mapActions(["mutateData"]),
     loadData() {
-        axios
+      axios
         .get(
-          "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+this.temp+"?apikey=rRIAyCDjOM3B7vL2asO8KA9ytn4NQAIp&metric=true"
+          "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+            this.temp +
+            "?apikey=rRIAyCDjOM3B7vL2asO8KA9ytn4NQAIp&metric=true"
         )
         .then(response => {
-             this.mutateData(response.data)
-             console.log(this.data);
+          this.mutateData(response.data);
+          // console.log(response.data.DailyForecasts);
+          this.val = response.data;
+          var xvalues = [];
+          var temp = [];
+          // console.log(this.val[0].Date);
+          this.val.DailyForecasts.forEach(i=>{
+            // console.log(i);
+            var t = i.Date;
+            var z = t.split("T")
+            var q = z[0].split("-");
+            temp.push(i.Temperature.Maximum.Value);
+            xvalues.push(q[2])
+          });
+          console.log(xvalues);
+          this.chartOptions.series=[
+            {
+              data:temp,
+            }
+          ]
+          this.chartOptions.xAxis={
+            categories:xvalues,
+            title:{
+              text:"Date"
+            }
+          }
         });
     }
   },
   mounted() {
     this.loadData();
-  },
+  }
 };
 </script>
 

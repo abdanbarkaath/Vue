@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     city:null,
     temp:null,
-    data:null
+    datas:null
   },
   mutations: {
     stateMethod(state,val){
@@ -17,7 +17,7 @@ export default new Vuex.Store({
       state.temp = val;
     },
     stateData(state,val){
-      state.data = val;
+      state.datas = val;
     }
   },
   actions: {
@@ -34,6 +34,6 @@ export default new Vuex.Store({
   getters:{
     city : state => state.city,
     temp: state => state.temp,
-    data: state=> state.data
+    datas: state=> state.datas
   }
 })

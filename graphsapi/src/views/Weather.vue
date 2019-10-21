@@ -1,18 +1,13 @@
 <template>
   <div>
-    <button class="btn btn-primary" @click="goDay">Daily</button>
-    <button class="btn btn-primary" @click="goHourly">Hourly</button>
-    <input type="text" v-model="time">
-    <button class="btn btn-primary" @click="sendData">Get Temperatures</button>
-    <!-- <button class="btn btn-primary" @click="loadKey">again</button> -->
-    <!-- <span>City</span>
-    <input type="text" v-model="city">
-    <button @click="go">Go</button>
-    <p>temp ={{display}}</p>
-    <div>
-        <p>{{hourly}}</p>
-    </div> -->
+    <div id="main-back">
+    <h1>Weather Api</h1>
+    <input id="getin" type="text" v-model="time">
+    <button class="btn btn-outline-primary sub" @click="sendData"><router-link to="/weather?mode=day"/> Get Temperatures</button><br>
+    <button class="btn btn-primary day" @click="goDay">Daily</button>
+    <button class="btn btn-primary hour" @click="goHourly">Hourly</button>
     <router-view/>
+    </div>
   </div>
 </template>
 
@@ -64,5 +59,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+#main-back{
+  padding-top: 50px;
+  height: 625px;
+  background: lightblue;
+  #getin{
+    border-radius: 5px;
+    height: 35px;
+    box-shadow: 0;
+  }
+  .sub{
+    margin-left: 5px;
+  }
+  .day{
+    margin: 10px;
+  }
+  .hour{
+    margin:10px;
+  }
+}
 </style>

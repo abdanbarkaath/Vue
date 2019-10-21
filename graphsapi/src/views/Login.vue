@@ -5,10 +5,10 @@
 		<h2>Login</h2>
 		<hr>
         <div class="form-group">
-        	<input type="name" class="form-control" @keydown="enable" v-model="localUsers.name" placeholder="Name" required>
+        	<input type="name" class="form-control" @keypress="enable" v-model="localUsers.name" placeholder="Name" required>
         </div>
 		<div class="form-group">
-            <input type="password" class="form-control" @keydown="enable" v-model="localUsers.password" placeholder="Password" required>
+            <input type="password" class="form-control" @keypress="enable" v-model="localUsers.password" placeholder="Password" required>
         </div>
 		
 		<div class="form-group">
@@ -33,13 +33,9 @@ export default {
       enable(){
          if(this.localUsers.name  &&  this.localUsers.password)
         {
-          console.log(this.localUsers.password);
-          // console.log(this.x);
           this.x = 1;
         }else{
-          // console.log(this.x);
           this.x = 0;
-          console.log(this.localUsers.password);
         }
       },
         go(){

@@ -1,106 +1,157 @@
 <template>
   <div id="back">
     <div class="signup">
-    <form id="forms">
-		<h2>Sign Up</h2>
-		<p>Please fill in this form to create an account!</p>
-		<hr>
+      <form id="forms">
+        <h2>Sign Up</h2>
+        <p>Please fill in this form to create an account!</p>
+        <hr />
         <div class="form-group">
-        	<input type="name" @keydown="enable" class="form-control" v-model="localUsers.name" placeholder="Name" required>
+          <input
+            type="name"
+            @keydown="enable"
+            class="form-control"
+            v-model="localUsers.name"
+            placeholder="Name"
+            required
+          />
         </div>
         <div class="form-group">
-        	<input type="email" @keydown="enable" class="form-control" v-model="localUsers.email" placeholder="Email" required>
+          <input
+            type="email"
+            @keydown="enable"
+            class="form-control"
+            v-model="localUsers.email"
+            placeholder="Email"
+            required
+          />
         </div>
         <div class="form-group">
-            <input type="number" @keydown="enable" class="form-control" v-model="localUsers.number" placeholder="Number" required>
+          <input
+            type="number"
+            @keydown="enable"
+            class="form-control"
+            v-model="localUsers.number"
+            placeholder="Number"
+            required
+          />
         </div>
-		<div class="form-group">
-            <input type="password" @keydown="enable" class="form-control" v-model="localUsers.password" placeholder="Password" required>
+        <div class="form-group">
+          <input
+            type="password"
+            @keydown="enable"
+            class="form-control"
+            v-model="localUsers.password"
+            placeholder="Password"
+            required
+          />
         </div>
-		<div class="form-group">
-            <input type="password" @keydown="enable" class="form-control" v-model="localUsers.passwordagain" placeholder="Password" required>
+        <div class="form-group">
+          <input
+            type="password"
+            @keydown="enable"
+            class="form-control"
+            v-model="localUsers.passwordagain"
+            placeholder="Password"
+            required
+          />
         </div>
-		
-		<div class="form-group">
-            <button class="btn btn-primary btn-lg" :disabled="x==0" @click.prevent="add">Sign Up</button>
-        </div>
-	<div class="hint-text">Already have an account? <a href="" @click.prevent="go">Login here</a></div>
-    </form>
-</div>
 
+        <div class="form-group">
+          <button class="btn btn-primary btn-lg" :disabled="x==0" @click.prevent="add">Sign Up</button>
+        </div>
+        <div class="hint-text">
+          Already have an account?
+          <a href @click.prevent="go">Login here</a>
+        </div>
+      </form>
+    </div>
 
     <!-- <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> -->
   </div>
 </template>
 
 <script>
-import Vuerouter from '../router/index'
+import Vuerouter from "../router/index";
 import axios from "axios";
 export default {
   data() {
     return {
-      x:0,
-      localUsers:{},
-      check:{
-        name:/^[A-Za-z.]{3,30}$/,
-        number:/^([0-9]{10})$/g,
-        email:/^[A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z]{2,6}$/
+      x: 0,
+      localUsers: {},
+      check: {
+        name: /^[A-Za-z.0-9]{3,30}$/,
+        number: /^([0-9]{10})$/g,
+        email: /^[A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z]{2,6}$/
       }
     };
   },
   methods: {
-    enable(){
-        if(this.localUsers.name  && this.localUsers.email  && this.localUsers.number  && this.localUsers.password  && this.localUsers.passwordagain)
-        {
-          console.log(this.x);
-          this.x = 1;
-        }else{
-          this.x = 0;
-        }
+    enable() {
+      if (
+        this.localUsers.name &&
+        this.localUsers.email &&
+        this.localUsers.number &&
+        this.localUsers.password &&
+        this.localUsers.passwordagain
+      ) {
+        console.log(this.x);
+        this.x = 1;
+      } else {
+        this.x = 0;
+      }
     },
-    go(){
-      this.$router.push({ name:'login' });
+    go() {
+      this.$router.push({ name: "login" });
     },
     add() {
-      // if(this.localUsers.number.match('this.check.number')){
-      //   console.log("correct number");
-      // }else{
-      //   console.log(" wrong number");
-      // }
-      // if(this.localUsers.email !== this.check.email){
-      //   console.log("enter correct email");
-      // }
-      // if(this.localUsers.number !== this.check.number){
-      //   console.log("enter correct number");
-      // }
-      // if(this.localUsers.number !== "^\d{1,10}$")
-
-
-      // undo
-      var i = 0;
+      var i = 1;
       var serialize;
-      var users =JSON.parse(localStorage.getItem('users'))||[];
-      users.forEach(x=>{
-        if(x.name == this.localUsers.name || x.email == this.localUsers.email){
-          alert("user already exists")
-          i=1;
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      if (this.check.name.test(this.localUsers.name)) {
+        console.log("correct name");
+        i = 1;
+        if (this.check.email.test(this.localUsers.email)) {
+          console.log("correct email");
+          i = 1;
+          if (this.check.number.test(this.localUsers.number)) {
+            console.log("correct number");
+            i = 1;
+            users.forEach(x => {
+              if (
+                x.name == this.localUsers.name ||
+                x.email == this.localUsers.email
+              ) {
+                alert("user already exists");
+                i = 0;
+              }else{
+              }
+            });
+            if (this.localUsers.password !== this.localUsers.passwordagain) {
+              alert("Passwords dont match");
+              i = 0;
+            } else {
+              if (i == 1) {
+                users.push(this.localUsers);
+                serialize = JSON.stringify(users);
+                localStorage.setItem("users", serialize);
+                this.$router.push({ name: "login" });
+              }
+            }
+          } else {
+            alert("wrong number");
+            console.log(this.localUsers.number);
+          }
+        } else {
+          alert("wrong email");
         }
-      })
-      if(this.localUsers.password !== this.localUsers.passwordagain){
-        alert("Passwords dont match")
-      }else{
-        if(i==0){
-      users.push(this.localUsers)
-      serialize = JSON.stringify(users)
-      localStorage.setItem('users',serialize);
-      this.$router.push({ name:'login' });
+      } else {
+        alert("wrong user name");
       }
-      }
-      },
-    get(){
+    },
+    get() {
       // x = JSON.parse(x);
-      var x= localStorage.getItem("users");
-      console.log(x+"id");
+      var x = localStorage.getItem("users");
+      console.log(x + "id");
     }
   },
   created() {
@@ -112,29 +163,29 @@ export default {
         this.val = response.data;
         // console.log(response.data);
       });
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-#back{
+#back {
   background: #3598dc;
   color: black;
   padding: 10px;
   height: 625px;
-  .signup{
-  width: 400px;
-  margin: 0 auto;
-  background: white;
-    #forms{
+  .signup {
+    width: 400px;
+    margin: 0 auto;
+    background: white;
+    #forms {
       width: 100%;
       padding: 10px;
       height: 605px;
     }
-    .form-group{
+    .form-group {
       padding: 10px;
     }
-    a{
+    a {
       color: red;
     }
   }
