@@ -3,11 +3,10 @@
     <div class="login">
       <form id="forms">
         <div id="login-back">
-          <img id="lock" src="https://img.icons8.com/ios/80/000000/lock.png" />
+          <img id="lock" src="https://img.icons8.com/ios/70/000000/lock.png" />
           <h2>Login</h2>
           <p>login to go to the dashboard</p>
         </div>
-        <hr />
         <div class="form-group">
           <label id="lab"><img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png"> Name</label>
           <input
@@ -110,7 +109,7 @@ export default {
       #lock {
         padding-right: 20px;
         float: right;
-        padding-top: 10px;
+        padding-top: 25px;
       }
       h2 {
         text-align: left;

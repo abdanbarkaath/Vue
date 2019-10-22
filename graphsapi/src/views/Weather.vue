@@ -42,6 +42,7 @@ export default {
           this.val = response.data[0].Key;
           this.mutateCity(this.val);
           console.log(this.temp);
+          this.$router.push({name:'day'})
         });
     },
     goHourly(){

@@ -3,7 +3,7 @@
     <div class="signup">
       <form id="forms">
         <div id="sign-back">
-          <img id="pen" src="https://img.icons8.com/ios/70/000000/edit.png" />
+          <img id="pen" src="https://img.icons8.com/ios/60/000000/edit.png" />
           <h2>Sign Up</h2>
           <p style="font-size:12px">Please fill in this form to create an account!</p>
         </div>
