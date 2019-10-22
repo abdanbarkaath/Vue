@@ -10,6 +10,8 @@
 import { mapActions, mapGetters } from "vuex";
 import { Chart } from "highcharts-vue";
 import axios from "axios";
+import VueProgressBar from 'vue-progressbar'
+
 export default {
   computed: {
     ...mapGetters(["city"]),
@@ -19,7 +21,6 @@ export default {
   data() {
     return {
       val: null,
-      // x1:this.data[0].
       store: 2,
       chartOptions: {
         chart: {
@@ -43,8 +44,15 @@ export default {
     };
   },
   methods: {
+    start () {
+        this.$Progress.start()
+    },
+    finish () {
+        this.$Progress.finish()
+    },
     ...mapActions(["mutateData"]),
     loadData() {
+      this.$Progress.start()
       axios
         .get(
           "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
@@ -64,7 +72,8 @@ export default {
             var z = t.split("T")
             var q = z[0].split("-");
             temp.push(i.Temperature.Maximum.Value);
-            xvalues.push(q[2])
+            xvalues.push(q[2]);
+            this.$Progress.finish()
           });
           console.log(xvalues);
           this.chartOptions.series=[
@@ -80,6 +89,9 @@ export default {
           }
         });
     }
+  },
+  created(){
+    this.$Progress.start()
   },
   mounted() {
     this.loadData();

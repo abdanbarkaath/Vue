@@ -2,6 +2,12 @@
   <div>
     <div class="container">
       <highcharts :options="chartOptions"></highcharts>
+       <div class="my-5">
+        <div class="alert alert-info">Loading...</div>
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -10,6 +16,8 @@
 import { mapActions, mapGetters } from "vuex";
 import { Chart } from "highcharts-vue";
 import axios from "axios";
+import VueProgressBar from 'vue-progressbar'
+
 export default {
   computed: {
     ...mapGetters(["city"]),
@@ -22,7 +30,8 @@ export default {
       x1: this.datas,
       chartOptions: {
         chart: {
-          type: "column"
+          type: "column",
+          loading:false,
         },
         title: {
           text: "Hourly"
@@ -41,8 +50,15 @@ export default {
     };
   },
   methods: {
+    start () {
+        this.$Progress.start()
+    },
+    finish () {
+        this.$Progress.finish()
+    },
     ...mapActions(["mutateData"]),
     loadData() {
+      this.$Progress.start()
       axios
         .get(
           "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/" +
@@ -51,18 +67,18 @@ export default {
         )
         .then(response => {
           this.mutateData(response.data);
-          // console.log(response.data);
           this.val = response.data;
           console.log(this.val[0]);
           const temp = [];
           const xvalue = [];
-          // const yvalue = [0,10,20,30,40,50,60];
           this.val.forEach(i => {
             var t = i.DateTime;
             var z = t.split("T")
             var q = z[1].split("+");
             temp.push(i.Temperature.Value);
             xvalue.push(q[0]);
+            this.loading = true;
+            this.$Progress.finish();
           });
           this.chartOptions.series = [
             {
@@ -83,7 +99,11 @@ export default {
         });
     }
   },
+  // created(){
+  //   this.$Progress.start()
+  // },
   mounted() {
+    // this.$Progress.finish()
     this.loadData();
   }
 };

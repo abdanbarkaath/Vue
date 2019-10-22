@@ -50,16 +50,6 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: '/hour',
-  //   name: 'hour',
-  //   component:Hour
-  // },
-  // {
-  //   path: '/day',
-  //   name: 'day',
-  //   component:Day,
-  // }
 ]
 
 const router = new VueRouter({

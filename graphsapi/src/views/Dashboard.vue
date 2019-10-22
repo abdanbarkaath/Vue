@@ -37,33 +37,31 @@
     <div id="main">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12 col-lg-6 col1">
-            <div class="card extend">
-              <div class="card-header">Pie Chart</div>
+          <div class="col-sm-12 col-lg-12 col1">
+            <div class="card extend extend1">
+              <div class="card-body">
+                <highcharts :options="chart3Options"></highcharts>
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div class="col-sm-12 col-lg-6 col2">
+            <div class="card extend extend2">
               <div class="card-body">
                 <highcharts :options="chart1Options"></highcharts>
               </div>
+              <hr />
             </div>
           </div>
-          <div class="col-sm-12 col-lg-6 col1">
-            <div class="card extend">
-              <div class="card-header">Line Chart</div>
+          <div class="col-sm-12 col-lg-6 col3">
+            <div class="card extend extend3">
               <div class="card-body">
                 <highcharts :options="chart2Options"></highcharts>
               </div>
             </div>
           </div>
-          <div class="col-sm-12 col-lg-6 col1">
-            <div class="card extend">
-              <div class="card-header">Column Chart</div>
-              <div class="card-body">
-                <highcharts :options="chart3Options"></highcharts>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-lg-6 col1">
-            <div class="card extend">
-              <div class="card-header">Area Chart</div>
+          <div class="col-sm-12 col-lg-12 col4">
+            <div class="card extend extend4">
               <div class="card-body">
                 <highcharts :options="chart4Options"></highcharts>
               </div>
@@ -84,7 +82,9 @@ export default {
     return {
       chart1Options: {
         chart: {
-          type: "pie"
+          type: "pie",
+          height: 40,
+          width: 20
         },
         chart: {
           plotBackgroundColor: null,
@@ -93,7 +93,7 @@ export default {
           type: "pie"
         },
         title: {
-          text: "Browser market shares in January, 2018"
+          text: "Pie Chart"
         },
         tooltip: {
           pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
@@ -157,7 +157,7 @@ export default {
       },
       chart2Options: {
         title: {
-          text: "Famous Football Players"
+          text: "Bar Chart"
         },
         xAxis: {
           categories: ["Ronaldo", "Rooney", "Lingaard", "Messi"]
@@ -176,9 +176,10 @@ export default {
           }
         },
         chart: {
-          type: "bar"
+          type: "bar",
+          height: 400
         },
-        colors: ['#6bff9f'],
+        colors: ["#6bff9f"],
         series: [
           {
             data: [5, 3, 1, 4] // sample data
@@ -187,10 +188,12 @@ export default {
       },
       chart3Options: {
         chart: {
-          type: "column"
+          type: "column",
+          width: 1200,
+          height: 350
         },
         title: {
-          text: "Year"
+          text: "Column Chart"
         },
         xAxis: {
           categories: [
@@ -215,7 +218,7 @@ export default {
             text: "Rainfall (mm)"
           }
         },
-        colors: ['#ff6bfd'],
+        colors: ["#000b73"],
 
         series: [
           {
@@ -238,11 +241,13 @@ export default {
       },
       chart4Options: {
         chart: {
-          type: "area"
+          type: "area",
+          width: 1200,
+          height:350
         },
 
         title: {
-          text: "Temperatures"
+          text: "Area Chart"
         },
         xAxis: {
           categories: [
@@ -262,7 +267,7 @@ export default {
             text: "Temperature in Degree"
           }
         },
-        
+
         series: [
           {
             data: [11, 36, 40, 20, 36, 28, 10, 20] // sample data
@@ -301,7 +306,7 @@ export default {
 }
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px; /* Set the width of the sidebar */
+  width: 100px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -315,7 +320,8 @@ export default {
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 15px;
+  font-weight: 550;
   color: #818181;
   display: block;
 }
@@ -324,12 +330,13 @@ export default {
   color: #f1f1f1;
 }
 #main {
-  margin-left: 200px;
+  margin-left: 100px;
+  background: #f0f1f7;
 }
 @media screen and (max-width: 496px) {
-    .extend{
-        width: 18rem;
-    }
+  .extend {
+    width: 18rem;
+  }
   .sidenav {
     width: 100px;
   }
@@ -344,7 +351,6 @@ export default {
   }
 }
 @media screen and (max-width: 966px) {
-    
   .sidenav {
     width: 100px;
   }
@@ -373,10 +379,51 @@ span {
   display: inline;
 }
 
+//cars
+.col1 {
+  padding: 50px;
+  .extend1 {
+    width: 100%;
+    height: 380px;
+    margin: 1px;
+    border: 0px;
+  }
+}
 
-.extend {
-  width: 35rem;
-  height: 500px;
-  margin: 1px;
+.col2 {
+  border-right: 1px solid #d9dade;
+  padding-left: 50px;
+  margin-bottom: 50px;
+  .extend2 {
+    width: 100%;
+    height: 500px;
+    margin: 1px;
+    border: 0px;
+  }
+}
+.col3 {
+  padding-right: 50px;
+  margin-bottom: 50px;
+  .extend3 {
+    width: 35rem;
+    height: 500px;
+    margin: 1px;
+    border: 0px;
+  }
+}
+.col4 {
+  padding: 0 50px 50px 50px;
+  .extend4 {
+    width: 100%;
+    height: 380px;
+    margin: 1px;
+    border: 0px;
+  }
+}
+.card-header {
+  font-family: cursive;
+  background: gainsboro;
+  font-size: 26px;
+  padding: 0px;
 }
 </style>
