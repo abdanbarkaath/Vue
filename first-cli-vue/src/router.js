@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Child1 from './views/Child1.vue'
 import Child2 from './views/Child2.vue'
 import Child3 from './views/Child3.vue'
+import EmitParent from './views/Emitparent.vue'
 
 
 Vue.use(Router)
@@ -31,6 +32,11 @@ export default new Router({
       path:'/child3',
       name:'child3',
       component:Child3
+    },
+    {
+      path:'/emit',
+      name:'EmitParent',
+      component:EmitParent
     },
     {
       path: '/about',

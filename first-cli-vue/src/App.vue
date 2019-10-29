@@ -9,6 +9,7 @@
       <router-link to="/child1">child1</router-link>|
       <router-link to="/child2">child2</router-link>|
       <router-link to="/child3">child3</router-link>|
+      <router-link to="/emit">Emit</router-link>|
     </div>
     <router-view/>
   </div>
