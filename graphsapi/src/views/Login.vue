@@ -4,11 +4,15 @@
       <form id="forms">
         <div id="login-back">
           <img id="lock" src="https://img.icons8.com/ios/70/000000/lock.png" />
-          <h2>Login</h2>
-          <p>login to go to the dashboard</p>
+          <div id="login-dash">
+            <h2>Login</h2>
+            <p>login to go to the dashboard</p>
+          </div>
         </div>
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png"> Name</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png" /> Name
+          </label>
           <input
             type="name"
             class="form-control"
@@ -19,7 +23,9 @@
           />
         </div>
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/material-sharp/20/000000/visible.png"> Password</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/material-sharp/20/000000/visible.png" /> Password
+          </label>
           <input
             type="password"
             class="form-control"
@@ -37,8 +43,11 @@
             class="btn btn-primary btn-lg"
             :disabled="x==0"
             @click.prevent="check"
-          > <img src="https://img.icons8.com/ios/20/000000/lock.png" /> Login</button>
+          >
+            <img src="https://img.icons8.com/ios/20/000000/lock.png" /> Login
+          </button>
         </div>
+        <hr />
         <div class="hint-text">
           Want to create an account?
           <a href @click.prevent="go">Sign up here</a>
@@ -64,7 +73,6 @@ export default {
         this.x = 1;
       } else {
         this.x = 0;
-        Vue.$toast.open('You did it!');
       }
     },
     go() {
@@ -79,15 +87,42 @@ export default {
           x.name == this.localUsers.name &&
           x.password == this.localUsers.password
         ) {
-          console.log("loged in");
+          this.$toastr("add", {
+            title:  this.localUsers.name+" has Logged in",
+            msg: "",
+            clickClose: true,
+            timeout: 3000,
+            position: "toast-top-center",
+            type: "success"
+          });
           this.$router.push({ name: "dashboard" });
           i = 1;
         }
       });
       if (i == 0) {
-        alert("wrong name or password");
+        this.$toastr("add", {
+          title: "Check username and password",
+          msg: "",
+          clickClose: true,
+          timeout: 3000,
+          position: "toast-top-center",
+          type: "error"
+        });
+        // alert("wrong name or password");
       }
     }
+  },
+  created() {
+    //  this.$toasted.show('Hello, I am from ItSolutionStuff.com')
+    // this.$toastr("add", {
+    //   title: "Logging in",
+    //   msg: "",
+    //   clickClose: true,
+    //   timeout: 3000,
+    //   position: "toast-top-center",
+    //   type: "success"
+    // });
+    // console.log("hello");
   }
 };
 </script>
@@ -109,22 +144,29 @@ export default {
   background: white;
   #forms {
     width: 100%;
+    height: 500px;
     #login-back {
       background: #4bc48e;
+      padding-top: 25px;
+      padding-bottom: 10px;
+      padding-left: 25px;
+      padding-right: 30px;
+      margin-bottom: 20px;
       #lock {
-        padding-right: 20px;
+        padding-right: 40px;
         float: right;
-        padding-top: 25px;
+        // padding-top: 25px;
       }
       h2 {
         text-align: left;
-        padding-top: 35px;
-        padding-left: 10px;
+        padding-top: 10px;
+        // padding-left: 10px;
+        font-size: 25px;
       }
       p {
         text-align: left;
-        padding-left: 10px;
-        padding-bottom: 20px;
+        // padding-left: 10px;
+        // padding-bottom: 20px;
         font-size: 12px;
       }
     }
@@ -140,7 +182,9 @@ export default {
   .form-group {
     font-weight: 550;
     padding: 10px;
-    #lab{
+    padding-left: 25px;
+    padding-right: 25px;
+    #lab {
       float: left;
       color: black;
     }
@@ -148,8 +192,12 @@ export default {
   a {
     color: #0275d8;
   }
-  .hint-text{
-    color:black;
+  .hint-text {
+    color: black;
+    padding-top: 10px;
+    float: right;
+    padding-right: 25px;
+    font-size: 13px;
   }
 }
 </style>

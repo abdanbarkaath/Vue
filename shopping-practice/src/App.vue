@@ -1,24 +1,21 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
-  
 </template>
 
 <script>
-import VueRouter from './router/index'
-
+import VueRouter from "./router/index";
 export default {
-
-created(){
-  this.$router.push({ name:'login'});
-}
-}
+  created() {
+    this.$router.push({ name: "home" });
+  }
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

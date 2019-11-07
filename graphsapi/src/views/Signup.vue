@@ -3,13 +3,15 @@
     <div class="signup">
       <form id="forms">
         <div id="sign-back">
-          <img id="pen" src="https://img.icons8.com/ios/60/000000/edit.png" />
+          <img id="pen" src="https://img.icons8.com/ios/50/000000/edit.png" />
           <h2>Sign Up</h2>
           <p style="font-size:12px">Please fill in this form to create an account!</p>
         </div>
         <!-- <hr /> -->
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png"> Signup as</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/pastel-glyph/25/000000/user-male--v1.png" /> Signup as
+          </label>
           <input
             type="name"
             @keydown="enable"
@@ -20,7 +22,9 @@
           />
         </div>
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/ios-glyphs/20/000000/email.png"> Email</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/ios-glyphs/20/000000/email.png" /> Email
+          </label>
           <input
             type="email"
             @keydown="enable"
@@ -31,7 +35,9 @@
           />
         </div>
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/material-sharp/20/000000/number-pad.png"> Phone Number</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/material-sharp/20/000000/number-pad.png" /> Phone Number
+          </label>
           <input
             type="number"
             @keydown="enable"
@@ -42,7 +48,9 @@
           />
         </div>
         <div class="form-group">
-          <label id="lab"><img src="https://img.icons8.com/material-sharp/20/000000/visible.png"> Password</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/material-sharp/20/000000/visible.png" /> Password
+          </label>
           <input
             type="password"
             @keydown="enable"
@@ -53,7 +61,9 @@
           />
         </div>
         <div class="form-group">
-          <label id="lab"> <img src="https://img.icons8.com/material-sharp/20/000000/visible.png"> Repeat Password</label>
+          <label id="lab">
+            <img src="https://img.icons8.com/material-sharp/20/000000/visible.png" /> Repeat Password
+          </label>
           <input
             type="password"
             @keydown="enable"
@@ -137,25 +147,61 @@ export default {
               }
             });
             if (this.localUsers.password !== this.localUsers.passwordagain) {
-              alert("Passwords dont match");
+              this.$toastr("add", {
+                title: "Passwords dont match",
+                msg: "",
+                clickClose: true,
+                timeout: 3000,
+                position: "toast-top-center",
+                type: "error"
+              });
               i = 0;
             } else {
               if (i == 1) {
                 users.push(this.localUsers);
                 serialize = JSON.stringify(users);
                 localStorage.setItem("users", serialize);
+                this.$toastr("add", {
+                  title: "User Registered",
+                  msg: "",
+                  clickClose: true,
+                  timeout: 3000,
+                  position: "toast-top-center",
+                  type: "success"
+                });
                 this.$router.push({ name: "login" });
               }
             }
           } else {
-            alert("wrong number");
+            this.$toastr("add", {
+              title: "Wrong number",
+              msg: "",
+              clickClose: true,
+              timeout: 3000,
+              position: "toast-top-center",
+              type: "error"
+            });
             console.log(this.localUsers.number);
           }
         } else {
-          alert("wrong email");
+          this.$toastr("add", {
+            title: "Wrong email",
+            msg: "",
+            clickClose: true,
+            timeout: 3000,
+            position: "toast-top-center",
+            type: "error"
+          });
         }
       } else {
-        alert("wrong user name");
+        this.$toastr("add", {
+          title: "Wrong username",
+          msg: "",
+          clickClose: true,
+          timeout: 3000,
+          position: "toast-top-center",
+          type: "error"
+        });
       }
     },
     get() {
@@ -165,14 +211,7 @@ export default {
     }
   },
   created() {
-    axios
-      .get(
-        "http://api.openweathermap.org/data/2.5/weather?q=London&APPID=8cce7edd41e14cec15c5a85b3ea142c8"
-      )
-      .then(response => {
-        this.val = response.data;
-        // console.log(response.data);
-      });
+    // console.log("hello");
   }
 };
 </script>
@@ -188,18 +227,22 @@ export default {
   #sign-back {
     text-align: left;
     height: 100px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: white;
-    padding: 15px;
+    padding: 25px;
+    padding-left: 25px;
     background: red;
+    h2 {
+      font-size: 25px;
+    }
     #pen {
-      padding-right: 10px;
+      padding-right: 15px;
       float: right;
     }
   }
   #lab {
     float: left;
-    margin-bottom: 1px;
+    margin-bottom: 0.5rem;
   }
   .signup {
     width: 400px;
@@ -210,8 +253,8 @@ export default {
       height: 605px;
     }
     .form-group {
-      padding: 0 10px 0 10px;
-      margin-bottom: 15px;
+      padding: 0 25px 0 25px;
+      margin-bottom: 10px;
       font-weight: 550;
     }
     a {
@@ -223,6 +266,9 @@ export default {
       font-size: 20px;
       margin-top: 15px;
       height: 35px;
+    }
+    .hint-text {
+      font-size: 13px;
     }
   }
 }
