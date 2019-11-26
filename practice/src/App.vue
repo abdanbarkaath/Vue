@@ -4,7 +4,10 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>|
       <router-link to="/login">Login</router-link>|
-      <router-link to="/registeration">Register</router-link>
+      <router-link to="/registeration">Register</router-link>|
+      <router-link to="/computed">computed</router-link>|
+      <router-link to="/toaster">toaster</router-link>|
+      <router-link to="/styleCheck">styleCheck</router-link>|
     </div>
     <router-view/>
   </div>
@@ -21,6 +24,9 @@ export default {
 </script>
 
 <style lang="scss">
+h1{
+  color: green;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
