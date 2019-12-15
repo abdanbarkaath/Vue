@@ -8,6 +8,7 @@
       <router-link to="/computed">computed</router-link>|
       <router-link to="/toaster">toaster</router-link>|
       <router-link to="/styleCheck">styleCheck</router-link>|
+
     </div>
     <router-view/>
   </div>

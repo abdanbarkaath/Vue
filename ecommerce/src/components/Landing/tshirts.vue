@@ -16,23 +16,35 @@
     <b-container fluid>
       <b-row class="main-row">
         <b-col class="main-col" sm="1" align-self="center">
-          <font-awesome-icon v-if="slide>0" @click="left" class="fonts" icon="arrow-alt-circle-left" size="3x"/>
+          <font-awesome-icon
+            v-if="slide>0"
+            @click="left"
+            class="fonts"
+            icon="arrow-alt-circle-left"
+            size="3x"
+          />
         </b-col>
         <b-col class="main-col" sm="10">
           <b-row>
             <b-col class="col" v-for="(tshirt,index) in lists" :key="index.id">
-              <b-card @click="goto(tshirt.id)" class="card">
-                <b-card-title class="card-title">{{tshirt.name}}</b-card-title>
-                <b-card-text>{{tshirt.isActive}}</b-card-text>
-                <b-card-text>{{tshirt.company}}</b-card-text>
-                <b-card-text class="price">{{tshirt.price}}</b-card-text>
-                <b-btn variant="outline-success">Add to Cart</b-btn>
+              <b-card class="card">
+                <b-card-title @click="goto(tshirt.id)" class="card-title">{{tshirt.name}}</b-card-title>
+                <b-card-text @click="goto(tshirt.id)">{{tshirt.isActive}}</b-card-text>
+                <b-card-text @click="goto(tshirt.id)">{{tshirt.company}}</b-card-text>
+                <b-card-text @click="goto(tshirt.id)" class="price">{{tshirt.price}}</b-card-text>
+                <b-btn @click="addtocart(tshirt)" variant="outline-success">Add to Cart</b-btn>
               </b-card>
             </b-col>
           </b-row>
         </b-col>
         <b-col class="main-col" sm="1" align-self="center">
-          <font-awesome-icon  v-if="slide<=loops-2" @click="right" class="fonts" icon="arrow-alt-circle-right" size="3x"/>
+          <font-awesome-icon
+            v-if="slide<=loops-2"
+            @click="right"
+            class="fonts"
+            icon="arrow-alt-circle-right"
+            size="3x"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -41,6 +53,8 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -54,26 +68,27 @@ export default {
   },
   methods: {
     /* eslint-disable */
+    ...mapActions(["productaction"]),
     goto(id) {
       this.$router.push("/tshirt/" + id);
     },
-   right() {
-        console.log(this.loops);
-        if(this.slide+1 < this.loops ){
-            this.slide++;
-        }else{
-            this.slide = 0 ;
-        }
-        console.log(this.slide);
+    right() {
+      console.log(this.loops);
+      if (this.slide + 1 < this.loops) {
+        this.slide++;
+      } else {
+        this.slide = 0;
+      }
+      console.log(this.slide);
     },
     left() {
-        if(this.slide>0){
-            this.slide--;
-        }else{
-            this.slide = this.loops -1;
-            console.log("min val");
-        }
-        console.log(this.slide);
+      if (this.slide > 0) {
+        this.slide--;
+      } else {
+        this.slide = this.loops - 1;
+        console.log("min val");
+      }
+      console.log(this.slide);
     },
     /* eslint-disable */
     loaddata() {
@@ -81,10 +96,13 @@ export default {
       axios.get(`http://localhost:3001/tshirts`).then(response => {
         this.tshirts = response.data;
         var temp = this.tshirts.length / 4;
-        this.loops =  Math.round(temp);
+        this.loops = Math.round(temp);
         console.log(this.loops);
         this.loader = false;
       });
+    },
+    addtocart(product) {
+      this.productaction(product);
     }
   },
   computed: {
@@ -117,8 +135,8 @@ export default {
   .main-col {
     .col {
       height: 280px;
-      // margin-left: px;
-      .price{
+      transition: 1s;
+      .price {
         font-weight: 800;
       }
     }
@@ -129,15 +147,15 @@ export default {
   text-align: left;
   color: #3d5c5c;
   box-shadow: 5px 5px 10px 1px #737878;
-
 }
 .select {
   width: 90px;
 }
-.fonts{
+.fonts {
   color: #0275d8;
 }
-.fonts:hover,.card:hover{
+.fonts:hover,
+.card:hover {
   cursor: pointer;
 }
 </style>

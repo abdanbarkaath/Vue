@@ -9,17 +9,16 @@
       <b-row>
         <b-col class="mb-5 mt-1" sm="4" v-for="(tshirt,index) in lists" :key="index.id">
           <div>
-            <b-card @click="goto(tshirt.id)" class="card">
-              <b-card-title class="card-title">{{tshirt.name}}</b-card-title>
-              <b-card-text class="card-text">{{tshirt.isActive}}</b-card-text>
-              <b-card-text class="card-text">{{tshirt.company}}</b-card-text>
-              <b-card-text class="price">₹{{tshirt.price}}</b-card-text>
-              <b-btn class="card-btn" variant="primary">Add to Cart</b-btn>
+            <b-card class="card">
+              <b-card-title @click="goto(tshirt.id)" class="card-title">{{tshirt.name}}</b-card-title>
+              <b-card-text @click="goto(tshirt.id)" class="card-text">{{tshirt.isActive}}</b-card-text>
+              <b-card-text @click="goto(tshirt.id)" class="card-text">{{tshirt.company}}</b-card-text>
+              <b-card-text @click="goto(tshirt.id)" class="price">₹{{tshirt.price}}</b-card-text>
+              <b-btn class="card-btn" @click="addtocart(tshirt)" variant="primary">Add to Cart</b-btn>
             </b-card>
           </div>
         </b-col>
       </b-row>
-      <b-table id="my-table" :per-page="perPage" :current-page="currentPage" small></b-table>
       <b-pagination :total-rows="rows" v-model="currentPage" :per-page="perPage" align="center" />
     </div>
   </div>
@@ -29,6 +28,7 @@
 import AppHeader from "../../AppHeader/AppHeader";
 import AppSubHeader from "../../AppHeader/AppSubHeader";
 import axios from "axios";
+import { mapActions} from "vuex";
 export default {
   components: {
     AppHeader,
@@ -46,6 +46,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'productaction'
+    ]),
     searched() {
       this.searchedItems = this.val
         ? this.tshirts.filter(shirt => shirt.name.search(this.val) > -1)
@@ -65,6 +68,9 @@ export default {
         this.searchedItems = response.data;
         this.loader = false;
       });
+    },
+    addtocart(product){
+      this.productaction(product);
     }
   },
   watch: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppHeader @enter = "recieve"></AppHeader>
+    <AppHeader @enter="recieve"></AppHeader>
     <AppSubHeader></AppSubHeader>
     <div v-if="loader" class="text-center spin">
       <b-spinner label="Spinning"></b-spinner>
@@ -9,16 +9,16 @@
       <b-row>
         <b-col class="mb-5 mt-1" sm="4" v-for="(shoe,index) in lists" :key="index.id">
           <div>
-            <b-card @click="goto(shoe.id)" class="card">
-              <b-card-title class="card-title">{{shoe.name}}</b-card-title>
-              <b-card-text class="card-text">{{shoe.isActive}}</b-card-text>
-              <b-card-text class="card-text">{{shoe.company}}</b-card-text>
-              <b-card-text class="price">₹{{shoe.price}}</b-card-text>
-              <b-btn class="card-btn" variant="primary">Add to Cart</b-btn>
+            <b-card class="card">
+              <b-card-title @click="goto(shoe.id)" class="card-title">{{shoe.name}}</b-card-title>
+              <b-card-text @click="goto(shoe.id)" class="card-text">{{shoe.isActive}}</b-card-text>
+              <b-card-text @click="goto(shoe.id)" class="card-text">{{shoe.company}}</b-card-text>
+              <b-card-text @click="goto(shoe.id)" class="price">₹{{shoe.price}}</b-card-text>
+              <b-btn class="card-btn" @click="addtocart(shoe)" variant="primary">Add to Cart</b-btn>
             </b-card>
           </div>
         </b-col>
-      </b-row> 
+      </b-row>
       <b-table id="my-table"  :per-page="perPage" :current-page="currentPage" small></b-table>
       <b-pagination :total-rows="rows" v-model="currentPage" :per-page="perPage" align="center" />
     </div>
@@ -28,46 +28,54 @@
 <script>
 import AppHeader from "../../AppHeader/AppHeader";
 import AppSubHeader from "../../AppHeader/AppSubHeader";
-import axios from 'axios'
+import axios from "axios";
+import { mapActions } from "vuex";
 export default {
   components: {
     AppHeader,
     AppSubHeader
   },
-  props:['input'],
+  props: ["input"],
   data() {
     return {
       shoes: [],
       perPage: 9,
       currentPage: 1,
-      loader:false,
-      val:'',
-      searchedItems: [],
+      loader: false,
+      val: "",
+      searchedItems: []
     };
   },
   methods: {
-    searched(){
-      this.searchedItems = (this.val) ? this.shoes.filter((shoe)=> shoe.name.toLowerCase().search(this.val) >-1) : this.shoes;
+    ...mapActions(["productaction"]),
+    searched() {
+      this.searchedItems = this.val
+        ? this.shoes.filter(
+            shoe => shoe.name.toLowerCase().search(this.val) > -1
+          )
+        : this.shoes;
     },
-    goto(id){
-      this.$router.push('/shoe/'+id)
+    goto(id) {
+      this.$router.push("/shoe/" + id);
     },
-    loaddata(){
+    loaddata() {
       this.loader = true;
-      axios.get("http://localhost:3002/shoes")
-      .then(response =>{
-        console.log(response.data)
+      axios.get("http://localhost:3002/shoes").then(response => {
+        console.log(response.data);
         this.shoes = response.data;
         this.searchedItems = this.shoes;
         this.loader = false;
-      })
+      });
     },
-    recieve(val){
+    recieve(val) {
       this.val = val;
+    },
+    addtocart(product) {
+      this.productaction(product);
     }
   },
-  watch:{
-    val(){
+  watch: {
+    val() {
       this.searched();
       console.log(this.val);
     }
@@ -82,8 +90,7 @@ export default {
     rows() {
       window.console.log(this.searchedItems.length);
       return this.searchedItems.length;
-    },
-    
+    }
   },
   mounted() {
     this.loaddata();
@@ -92,17 +99,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card{
+.card {
   text-align: left;
   border: none;
   color: #3d5c5c;
   box-shadow: 5px 5px 10px 1px #737878;
 
-  .price{
+  .price {
     font-weight: 800;
   }
 }
-.card:hover{
+.card-title:hover,
+.card-text:hover {
   cursor: pointer;
 }
 </style>

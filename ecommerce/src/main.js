@@ -6,7 +6,7 @@ import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret, faStore, faCartPlus, faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faStore, faCartPlus, faArrowAltCircleLeft, faArrowAltCircleRight, faFrown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -18,6 +18,7 @@ library.add(faStore);
 library.add(faCartPlus);
 library.add(faArrowAltCircleLeft);
 library.add(faArrowAltCircleRight);
+library.add(faFrown);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueAxios, axios)

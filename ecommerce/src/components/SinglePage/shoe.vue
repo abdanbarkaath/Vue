@@ -46,6 +46,8 @@
 import AppHeader from "../AppHeader/AppHeader";
 import AppSubHeader from "../AppHeader/AppSubHeader";
 import axios from "axios";
+import { mapActions} from "vuex";
+
 export default {
   components: {
     AppHeader,
@@ -71,13 +73,18 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'productaction'
+    ]),
     loaddata() {
       this.loader = true;
       axios.get(`http://localhost:3002/shoes/${this.id}`).then(response => {
         this.shoe = response.data;
-        console.log(this.shoe);
         this.loader = false;
       });
+    },
+    addtocart(product){
+      this.productaction(product)
     }
   },
   mounted() {

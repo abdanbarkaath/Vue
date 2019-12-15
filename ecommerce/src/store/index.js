@@ -4,12 +4,20 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
+  actions: {
+    productaction:(store,totals)=>{
+      store.commit("mutatueproduct",totals);
+    }
   },
   mutations: {
+    mutatueproduct:(store,totals)=>{
+      store.total.push(totals);
+    }
   },
-  actions: {
+  state: {
+    total:[],
   },
-  modules: {
+  getters:{
+    total:state=> state.total
   }
 })

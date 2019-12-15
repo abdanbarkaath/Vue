@@ -31,7 +31,7 @@
             <b-row>
               <b-col class="col3" align-self="start">
                 <span>
-                  <b-btn class="btn" variant="success">Add to cart</b-btn>
+                  <b-btn class="btn" @click="addtocart(shirt)" variant="success">Add to cart</b-btn>
                 </span>
               </b-col>
             </b-row>
@@ -46,6 +46,8 @@
 import AppHeader from "../AppHeader/AppHeader";
 import AppSubHeader from "../AppHeader/AppSubHeader";
 import axios from "axios";
+import { mapActions} from "vuex";
+
 export default {
   components: {
     AppHeader,
@@ -71,13 +73,18 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'productaction'
+    ]),
     loaddata() {
       this.loader = true;
       axios.get(`http://localhost:3001/tshirts/${this.id}`).then(response => {
         this.shirt = response.data;
-        console.log(this.shirt);
         this.loader = false;
       });
+    },
+    addtocart(product){
+      this.productaction(product)
     }
   },
   mounted() {

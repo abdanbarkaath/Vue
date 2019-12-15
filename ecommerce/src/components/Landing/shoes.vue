@@ -19,12 +19,12 @@
         <b-col class="main-col" sm="10">
           <b-row>
             <b-col class="col" v-for="(shoe,index) in lists" :key="index.id">
-              <b-card @click="goto(shoe.id)" class="card">
-                <b-card-title class="card-title">{{shoe.name}}</b-card-title>
-                <b-card-text>{{shoe.isActive}}</b-card-text>
-                <b-card-text>{{shoe.company}}</b-card-text>
-                <b-card-text class="price">{{shoe.price}}</b-card-text>
-                <b-btn variant="outline-success">Add to Cart</b-btn>
+              <b-card class="card">
+                <b-card-title  @click="goto(shoe.id)" class="card-title">{{shoe.name}}</b-card-title>
+                <b-card-text  @click="goto(shoe.id)">{{shoe.isActive}}</b-card-text>
+                <b-card-text  @click="goto(shoe.id)">{{shoe.company}}</b-card-text>
+                <b-card-text  @click="goto(shoe.id)" class="price">{{shoe.price}}</b-card-text>
+                <b-btn @click="addtocart(shoe)" variant="outline-success">Add to Cart</b-btn>
               </b-card>
             </b-col>
           </b-row>
@@ -39,6 +39,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions} from "vuex";
 export default {
   data() {
     return {
@@ -52,6 +53,9 @@ export default {
   },
   methods: {
     /* eslint-disable */
+    ...mapActions([
+      'productaction'
+    ]),
     goto(id){
       this.$router.push('/shoe/'+id);
     },
@@ -78,11 +82,14 @@ export default {
       this.loader = true;
       axios.get(`http://localhost:3002/shoes`).then(response => {
         this.shoes = response.data;
-        var temp = this.shoes.length / 4;
+        var temp = this.shoes.length / this.perPage;
         this.loops =  Math.round(temp);
         console.log(this.loops);
         this.loader = false;
       });
+    },
+    addtocart(product){
+      this.productaction(product)
     }
   },
   computed: {

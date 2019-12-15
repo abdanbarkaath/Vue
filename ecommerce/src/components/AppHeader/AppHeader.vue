@@ -23,7 +23,7 @@
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-navbar-nav>
-              <b-btn class="ml-3" variant="danger">
+              <b-btn @click="goto" class="ml-3" variant="danger">
                 <font-awesome-icon icon="cart-plus" /> Cart
               </b-btn>
             </b-navbar-nav>
@@ -50,6 +50,9 @@ export default {
   //   }
   // },
   methods:{
+    goto(){
+      this.$router.push('/cart')
+    },
     senddata(){
           this.$emit("enter",this.input);
           console.log(this.input);
