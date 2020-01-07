@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 // import User from "./userscarousel"
 import shoes from "./shoes"
 import tshirts from "./tshirts"

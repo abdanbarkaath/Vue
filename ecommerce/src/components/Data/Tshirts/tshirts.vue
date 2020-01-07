@@ -7,19 +7,42 @@
     </div>
     <div class="overflow-auto container mt-5">
       <b-row>
-        <b-col class="mb-5 mt-1" sm="4" v-for="(tshirt,index) in lists" :key="index.id">
+        <b-col
+          class="mb-5 mt-1"
+          sm="4"
+          v-for="(tshirt, index) in lists"
+          :key="index.id"
+        >
           <div>
             <b-card class="card">
-              <b-card-title @click="goto(tshirt.id)" class="card-title">{{tshirt.name}}</b-card-title>
-              <b-card-text @click="goto(tshirt.id)" class="card-text">{{tshirt.isActive}}</b-card-text>
-              <b-card-text @click="goto(tshirt.id)" class="card-text">{{tshirt.company}}</b-card-text>
-              <b-card-text @click="goto(tshirt.id)" class="price">₹{{tshirt.price}}</b-card-text>
-              <b-btn class="card-btn" @click="addtocart(tshirt)" variant="primary">Add to Cart</b-btn>
+              <b-card-title @click="goto(tshirt.id)" class="card-title">{{
+                tshirt.name
+              }}</b-card-title>
+              <b-card-text @click="goto(tshirt.id)" class="card-text">{{
+                tshirt.isActive
+              }}</b-card-text>
+              <b-card-text @click="goto(tshirt.id)" class="card-text">{{
+                tshirt.company
+              }}</b-card-text>
+              <b-card-text @click="goto(tshirt.id)" class="price"
+                >₹{{ tshirt.price }}</b-card-text
+              >
+              <b-btn
+                class="card-btn"
+                @click="addtocart(tshirt)"
+                variant="primary"
+                >Add to Cart</b-btn
+              >
             </b-card>
           </div>
         </b-col>
       </b-row>
-      <b-pagination :total-rows="rows" v-model="currentPage" :per-page="perPage" align="center" />
+      <b-pagination
+        :total-rows="rows"
+        v-model="currentPage"
+        :per-page="perPage"
+        align="center"
+      />
     </div>
   </div>
 </template>
@@ -28,7 +51,7 @@
 import AppHeader from "../../AppHeader/AppHeader";
 import AppSubHeader from "../../AppHeader/AppSubHeader";
 import axios from "axios";
-import { mapActions} from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {
     AppHeader,
@@ -46,14 +69,29 @@ export default {
     };
   },
   methods: {
-    ...mapActions([
-      'productaction'
-    ]),
+    ...mapActions(["productaction"]),
+    //gets the value from props and is searched here
     searched() {
-      this.searchedItems = this.val
-        ? this.tshirts.filter(shirt => shirt.name.search(this.val) > -1)
-        : this.tshirts;
+      this.searchedItems = this.tshirts.filter(item => {
+        if (
+          this.val
+            .toLowerCase()
+            .split(" ")
+            .every(s => item.name.toLowerCase().includes(s))
+        ) {
+          return this.val
+            .toLowerCase()
+            .split(" ")
+            .every(s => item.name.toLowerCase().includes(s));
+        }
+      });
     },
+    //   this.searchedItems = this.val
+    //     ? this.tshirts.filter(shirt => shirt.name.search(this.val) > -1)
+    //     : this.tshirts;
+    // },
+    
+    //value recieved from the props
     recieve(val) {
       this.val = val;
     },
@@ -69,7 +107,7 @@ export default {
         this.loader = false;
       });
     },
-    addtocart(product){
+    addtocart(product) {
       this.productaction(product);
     }
   },
@@ -100,13 +138,13 @@ export default {
   text-align: left;
   border: none;
   color: #3d5c5c;
-  box-shadow: 5px 5px 10px 1px #737878;
+  box-shadow: 0px 1px 5px 1px #737878;
 
   .price {
     font-weight: 800;
   }
 }
-.card:hover{
+.card:hover {
   cursor: pointer;
 }
 </style>

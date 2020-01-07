@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="ml-3 mt-3">
+    <b-container fluid class="mt-3">
       <b-row class="ml-5" align-h="start">
         <b-col class="ml-5">
           <router-link to="/tshirts" class="ml-5">
@@ -133,6 +133,7 @@ export default {
 .main-row {
   height: 300px;
   .main-col {
+    padding-right: 0px;
     .col {
       height: 280px;
       transition: 1s;
@@ -146,7 +147,7 @@ export default {
   height: 100%;
   text-align: left;
   color: #3d5c5c;
-  box-shadow: 5px 5px 10px 1px #737878;
+  box-shadow: 0px 1px 5px 1px #737878;
 }
 .select {
   width: 90px;

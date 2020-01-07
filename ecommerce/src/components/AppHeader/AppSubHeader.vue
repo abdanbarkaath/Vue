@@ -1,46 +1,79 @@
 <template>
-    <b-nav class="main-nav" tabs align="left">
-      <b-dropdown id="dropdown-1" text="Clothing" class="m-md-2 btn" variant="outline" >
+  <b-nav class="main-nav" tabs align="left">
+    <div @mouseover="onOver" @mouseleave="onLeave">
+      <b-dropdown
+        id="dropdown-1"
+        text="Dropdown Button"
+        ref="dropdown"
+        class="m-md-2 btn"
+      >
         <b-dropdown-item>First Action</b-dropdown-item>
         <b-dropdown-item>Second Action</b-dropdown-item>
         <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item >Active action</b-dropdown-item>
-        <b-dropdown-item >Disabled action</b-dropdown-item>
       </b-dropdown>
-      <b-dropdown  id="dropdown-1" text="Electronics" class="m-md-2 btn"  variant="outline">
+    </div>
+    <div @mouseover="onOver" @mouseleave="onLeave">
+      <b-dropdown
+        id="dropdown-2"
+        text="Dropdown Button"
+        ref="dropdown"
+        class="m-md-2 btn"
+      >
         <b-dropdown-item>First Action</b-dropdown-item>
         <b-dropdown-item>Second Action</b-dropdown-item>
         <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item >Active action</b-dropdown-item>
-        <b-dropdown-item >Disabled action</b-dropdown-item>
       </b-dropdown>
-      <b-dropdown id="dropdown-1" text="Home applainces" class="m-md-2 btn"  variant="outline">
+    </div>
+    <div @mouseover="onOver" @mouseleave="onLeave">
+      <b-dropdown
+        id="dropdown-3"
+        text="Dropdown Button"
+        ref="dropdown"
+        class="m-md-2 btn"
+      >
         <b-dropdown-item>First Action</b-dropdown-item>
         <b-dropdown-item>Second Action</b-dropdown-item>
         <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item >Active action</b-dropdown-item>
-        <b-dropdown-item >Disabled action</b-dropdown-item>
       </b-dropdown>
-      <b-dropdown id="dropdown-1" text="Game Zone" class="m-md-2 btn"  variant="outline">
+    </div>
+    <div @mouseover="onOver" @mouseleave="onLeave">
+      <b-dropdown
+        id="dropdown-4"
+        text="Dropdown Button"
+        ref="dropdown"
+        class="m-md-2 btn"
+      >
         <b-dropdown-item>First Action</b-dropdown-item>
         <b-dropdown-item>Second Action</b-dropdown-item>
         <b-dropdown-item>Third Action</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item >Active action</b-dropdown-item>
-        <b-dropdown-item >Disabled action</b-dropdown-item>
       </b-dropdown>
-    </b-nav>
+    </div>
+  </b-nav>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    mouse() {
+      console.log("hello");
+    },
+    onOver() {
+      this.$refs.dropdown.visible = true;
+      console.log(this.$refs.dropdown.id);
+    },
+    onLeave() {
+      this.$refs.dropdown.visible = false;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
+.btn {
+  background: white;
+  color: black;
+  border: none;
+}
 .main-nav {
   background: white;
   padding-left: 30px;
@@ -64,5 +97,4 @@ span:hover {
   background: white;
   color: black;
 }
-
 </style>
